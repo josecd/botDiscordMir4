@@ -1,4 +1,3 @@
-const config = require("./config.json");
 const prefix = "!";
 
 const express = require('express');
