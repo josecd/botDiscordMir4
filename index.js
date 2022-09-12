@@ -23,6 +23,7 @@ client.on("ready", () => {
   console.log(`Logged in as ${client.user.tag}!`)
 })
 
+//register
 client.on("messageCreate", (message) => {
   if (message.content.startsWith(prefix + "register")) {
     const mensaje = message.content.slice(10);
@@ -186,19 +187,18 @@ client.on("messageCreate", (message) => {
               var username = message.author.username;
               var usernameds = message.author.username +'#'+message.author.discriminator;
               var displayName = `[${ranking}] ${name} ${powerscore}`;
-              var ranking2 =ranking;
               var name2=name;
-              var clan2=clan;
               var powescore=powerscore
-              var server2=server
-          
               var sql = `INSERT INTO registry (username,usernameds, displayName, ranking,name,clan,powescore,server, created_at) 
-              
-              VALUES ("${username}", "${usernameds}", "${displayName}","${ranking2}","${name2}","${clan2}","${powescore}","${server2}", NOW())`
-              db.query(sql, function (err, result) {
-                if (err) throw err
-                console.log('Row has been updated')
-              })
+              VALUES ("${username}", "${usernameds}", "${displayName}","${ranking}","${name2}","${clan}","${powescore}","${server}", NOW())`
+
+              db.query(sql, (err, rows) => { /* */ });
+
+              // db.query(sql, function (err, result) {
+              //   if (err) throw err
+              //   console.log('Row has been updated')
+              // })
+
 
             }
 
@@ -228,6 +228,7 @@ client.on("messageCreate", (message) => {
   }
 })
 
+//search
 client.on("messageCreate", (message) => {
   if (message.content.startsWith(prefix + "search")) {
     const mensaje = message.content.slice(8)
