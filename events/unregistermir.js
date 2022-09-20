@@ -16,34 +16,42 @@ const jsdom = require('jsdom');
 var db = require('../database')
 
 module.exports = {
-    name: 'messageCreate',
-    async execute(message) {
-        if (message.content.startsWith(prefix + "unregister")) {
-            const mensaje = message.content.slice(10)
-            console.log(mensaje);
-            let rol54 = message.guild.roles.cache.find(member => member.name == `NA54`);
-            let rol76 = message.guild.roles.cache.find(member => member.name == `NA76`);
-            let clanDTMÇG = message.guild.roles.cache.find(member => member.name == `DTM Ç G`);
-            let clanDTMInfra = message.guild.roles.cache.find(member => member.name == `DTM Infra`);
-            let clanDTMLaOrden = message.guild.roles.cache.find(member => member.name == `DTM LaOrden`);
-            let clanDTMCGALO = message.guild.roles.cache.find(member => member.name == `DTM CG ALO`);
-            let clanDTMCGcomilla = message.guild.roles.cache.find(member => member.name == 'DTM CG´');
-            let clanDTMCGWINX = message.guild.roles.cache.find(member => member.name == `DTM CG WINX`);
-            let clanDTMCGØrigen = message.guild.roles.cache.find(member => member.name == `DTM CGØrigen`);
-            let clanDTMCG = message.guild.roles.cache.find(member => member.name == `D T M CG`);
-        
-            message.guild.members.cache.get(message.author.id).setNickname(message.author.username)
-            rol54 ? message.guild.members.cache.get(message.author.id).roles.remove(rol54.id) : ''
-            rol76 ? message.guild.members.cache.get(message.author.id).roles.remove(rol76.id) : ''
-            clanDTMÇG ? message.guild.members.cache.get(message.author.id).roles.remove(clanDTMÇG.id) : ''
-            clanDTMInfra ? message.guild.members.cache.get(message.author.id).roles.remove(clanDTMInfra.id) : ''
-            clanDTMLaOrden ? message.guild.members.cache.get(message.author.id).roles.remove(clanDTMLaOrden.id) : ''
-            clanDTMCGALO ? message.guild.members.cache.get(message.author.id).roles.remove(clanDTMCGALO.id) : ''
-            clanDTMCGcomilla ? message.guild.members.cache.get(message.author.id).roles.remove(clanDTMCGcomilla.id) : ''
-            clanDTMCGWINX ? message.guild.members.cache.get(message.author.id).roles.remove(clanDTMCGWINX.id) : ''
-            clanDTMCGØrigen ? message.guild.members.cache.get(message.author.id).roles.remove(clanDTMCGØrigen.id) : ''
-            clanDTMCG ? message.guild.members.cache.get(message.author.id).roles.remove(clanDTMCG.id) : ''
-        
-          }
+  name: 'messageCreate',
+  async execute(message) {
+    if (message.content.startsWith(prefix + "unregister")) {
+      const mensaje = message.content.slice(10)
+      console.log(mensaje);
+
+      const sql1 = `SELECT * FROM clanes`
+      db.query(sql1, (err, rows) => {
+        const valores = message.guild.roles.cache
+        const valores2 = rows
+
+        const comparador = (valores, valores2) => {
+          let responseArray = [];
+          let lis = valores2.filter(i => {
+            let obj = valores.find(e => {
+              if (e.name == i.name) {
+                let copyArray2Element = i;
+                copyArray2Element.name = e.name;
+                responseArray.push(copyArray2Element);
+                return true;
+              }
+            });
+          });
+          let responseArrayOnlyIds = responseArray.map(e => e.name);
+          return responseArrayOnlyIds;
+        }
+        const clanInfo = comparador(valores, valores2)
+        clanInfo.map(async (element) => {
+          let rolClan = message.guild.roles.cache.find(member => member.name == element);
+          message.guild.members.cache.get(message.author.id).roles.remove(rolClan.id)
+        });
+        let rol54 = message.guild.roles.cache.find(member => member.name == `NA54`);
+        rol54 ? message.guild.members.cache.get(message.author.id).roles.remove(rol54.id) : ''
+        message.guild.members.cache.get(message.author.id).setNickname(message.author.username)
+
+      })
     }
+  }
 }

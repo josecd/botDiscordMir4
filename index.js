@@ -9,7 +9,7 @@ const client = new Client({
     GatewayIntentBits.GuildMembers,
     GatewayIntentBits.GuildMessages
   ]
-}); 
+});
 
 const puppeteer = require('puppeteer');
 const jsdom = require('jsdom');
@@ -25,7 +25,19 @@ for (const file of eventFiles) {
 client.on("messageCreate", (message) => {
   if (message.content.startsWith(prefix + "initServer")) {
     const mensaje = message.content.slice(9)
-    
+    console.log(mensaje);
+    const sql1 = `SELECT * FROM clanes`
+    db.query(sql1, (err, rows) => {
+      rows.map(async (element) => {
+        message.guild.roles.create({ name:element.name, color:'#'+(Math.random()*0xFFFFFF<<0).toString(16)})
+          .then((res => {
+            message.channel.send(`debug result:\n${res}`)
+          })).catch((err => {
+            message.channel.send(`error:\n${err}`)
+          }))
+      });
+
+    })
   }
 });
 
@@ -43,5 +55,9 @@ client.on('interactionCreate', async interaction => {
     });
   };
 });
+
+function random(colors) {
+  return colors[Math.floor(Math.random() * colors.length)];
+};
 
 client.login(require('./token.json').token);
