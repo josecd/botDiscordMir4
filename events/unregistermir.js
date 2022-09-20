@@ -20,8 +20,19 @@ module.exports = {
   async execute(message) {
     if (message.content.startsWith(prefix + "unregister")) {
       const mensaje = message.content.slice(10)
-      console.log(mensaje);
 
+      if (message.guild.ownerId == message.author.id) {
+        const embed = new EmbedBuilder()
+          .setColor('ff9600')
+          .setTitle('Player information')
+          .setDescription(`Contact the creator jcordero#9338`)
+          .setFooter({ text: 'jcordero#9338 -- Alejandrocd#4130' })
+        message.channel.send({ embeds: [embed] })
+        return false;
+      }
+
+      const sql2 = `UPDATE registry SET activo=0 WHERE usernameds='${message.author.username + '#' + message.author.discriminator}'`
+      db.query(sql2, (err, rows) => {})
       const sql1 = `SELECT * FROM clanes`
       db.query(sql1, (err, rows) => {
         const valores = message.guild.roles.cache

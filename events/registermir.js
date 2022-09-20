@@ -20,6 +20,16 @@ module.exports = {
   async execute(message) {
     if (message.content.startsWith(prefix + "register")) {
       const mensaje = message.content.slice(10);
+      if (message.guild.ownerId == message.author.id) {
+        const embed = new EmbedBuilder()
+          .setColor('ff9600')
+          .setTitle('Player information')
+          .setDescription(`Contact the creator jcordero#9338`)
+          .setFooter({ text: 'jcordero#9338 -- Alejandrocd#4130' })
+        message.channel.send({ embeds: [embed] })
+        return false;
+      }
+
       if (message.author.username != message.guild.members.cache.get(message.author.id).displayName) {
         const embed = new EmbedBuilder()
           .setColor('ff9600')
@@ -170,10 +180,22 @@ module.exports = {
                 const sql1 = `SELECT * FROM clanes WHERE name = '${clan}'`
                 db.query(sql1, (err, rows) => {
                   if (rows.length != 0) {
-                    console.log('El clan esta registrado');
+                    if (server == 'NA54') {
+                      let rol54 = message.guild.roles.cache.find(member => member.name == `NA54`);
+                      if (rol54) {
+                        message.guild.members.cache.get(message.author.id).roles.add(rol54.id)
+                      } else {
+                        message.guild.roles.create({ name: 'NA54', color: '#' + (Math.random() * 0xFFFFFF << 0).toString(16) })
+                          .then((res => {
+                            let rol54 = message.guild.roles.cache.find(member => member.name == `NA54`);
+                            message.guild.members.cache.get(message.author.id).roles.add(rol54.id)
+                            message.channel.send(`result:\n${res}`)
+                          })).catch((err => {
+                            message.channel.send(`error:\n${err}`)
+                          }))
+                      }
+                    }
                     message.channel.send({ embeds: [embed] })
-
-
                     let clanObj = message.guild.roles.cache.find(member => member.name == clan);
                     if (clanObj) {
                       //insertar nombre de usuario registrado
@@ -187,15 +209,12 @@ module.exports = {
                       var displayName = `[${ranking}] ${name} ${powerscore}`;
                       var name2 = name;
                       var powescore = powerscore
-                      const sql = `INSERT INTO registry (username,usernameds, displayName, ranking,name,clan,powescore,server, created_at) 
-                            VALUES ("${username}", "${usernameds}", "${displayName}","${ranking}","${name2}","${clan}","${powescore}","${server}", NOW())`
+                      const sql = `INSERT INTO registry (username,usernameds, displayName, ranking,name,clan,powescore,server, created_at,activo,discorduserid) 
+                            VALUES ("${username}", "${usernameds}", "${displayName}","${ranking}","${name2}","${clan}","${powescore}","${server}", NOW(),1,${message.author.id})`
 
                       db.query(sql, (err, rows) => { /* */ })
 
-                      if (server == 'NA54') {
-                        let rol54 = message.guild.roles.cache.find(member => member.name == `NA54`);
-                        message.guild.members.cache.get(message.author.id).roles.add(rol54.id)
-                      }
+
                     } else {
                       console.log('No hay rol del clan ');
                       const embed = new EmbedBuilder()

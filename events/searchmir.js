@@ -56,7 +56,6 @@ module.exports = {
                   console.log(element);
                 });
                 console.log(info);
-                console.log(name, clan, powerscore);
         
                 ranking = info[0]
                 name = info[5]
