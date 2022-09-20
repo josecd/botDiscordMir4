@@ -35,7 +35,7 @@ module.exports = {
             const browser = await puppeteer.launch({
               headless: true,
               args: ['--no-sandbox']
-          })
+            })
             const page = await browser.newPage();
             const response = await page.goto(`https://forum.mir4global.com/rank?ranktype=1&worldgroupid=12&worldid=509&classtype=0&searchname=${mensaje}&globalSearch=1`);
             const body = await response.text();
@@ -173,13 +173,14 @@ module.exports = {
                     console.log('El clan esta registrado');
                     message.channel.send({ embeds: [embed] })
 
-                    //insertar nombre de usuario registrado
-                    message.guild.members.cache.get(message.author.id).setNickname(`[${ranking}] ${name} ${powerscore}`)
 
                     let clanObj = message.guild.roles.cache.find(member => member.name == clan);
                     if (clanObj) {
+                      //insertar nombre de usuario registrado
+                      message.guild.members.cache.get(message.author.id).setNickname(`[${ranking}] ${name} ${powerscore}`)
+
                       clan == clan ? message.guild.members.cache.get(message.author.id).roles.add(clanObj.id) : '';
-                  
+
                       //insertar en la base de datos
                       var username = message.author.username;
                       var usernameds = message.author.username + '#' + message.author.discriminator;
@@ -188,32 +189,32 @@ module.exports = {
                       var powescore = powerscore
                       const sql = `INSERT INTO registry (username,usernameds, displayName, ranking,name,clan,powescore,server, created_at) 
                             VALUES ("${username}", "${usernameds}", "${displayName}","${ranking}","${name2}","${clan}","${powescore}","${server}", NOW())`
-  
+
                       db.query(sql, (err, rows) => { /* */ })
-  
+
                       if (server == 'NA54') {
                         let rol54 = message.guild.roles.cache.find(member => member.name == `NA54`);
                         message.guild.members.cache.get(message.author.id).roles.add(rol54.id)
                       }
-                    }else{
+                    } else {
                       console.log('No hay rol del clan ');
                       const embed = new EmbedBuilder()
-                      .setColor('ff9600')
-                      .setTitle('Clan information')
-                      .setDescription(`clan without roles in the discord`)
-                      .setFooter({ text: 'Information is updated every day at 03:00 PM Server time.' })
+                        .setColor('ff9600')
+                        .setTitle('Clan information')
+                        .setDescription(`clan without roles in the discord`)
+                        .setFooter({ text: 'Information is updated every day at 03:00 PM Server time.' })
                       message.channel.send({ embeds: [embed] })
                       return false
                     }
 
-                    
-                  }else{
+
+                  } else {
                     console.log('El clan no esta registrado');
                     const embed = new EmbedBuilder()
-                    .setColor('ff9600')
-                    .setTitle('Clan information')
-                    .setDescription(`clan is not whitelisted`)
-                    .setFooter({ text: 'Information is updated every day at 03:00 PM Server time.' })
+                      .setColor('ff9600')
+                      .setTitle('Clan information')
+                      .setDescription(`clan is not whitelisted`)
+                      .setFooter({ text: 'Information is updated every day at 03:00 PM Server time.' })
                     message.channel.send({ embeds: [embed] })
                     return false
                   }
