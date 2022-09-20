@@ -374,42 +374,32 @@ module.exports = {
         content: 'Guardando ticket...'
       });
 
-      chan.messages.fetch().then(async (messages) => {
-        let a = messages.filter(m => m.author.bot !== true).map(m =>
-          `${new Date(m.createdTimestamp).toLocaleString('de-DE')} - ${m.author.username}#${m.author.discriminator}: ${m.attachments.size > 0 ? m.attachments.first().proxyURL : m.content}`
-        ).reverse().join('\n');
-        if (a.length < 1) a = "It was not written in the ticket"
-        hastebin.createPaste(a, {
-          contentType: 'text/plain',
-          server: 'https://hastebin.com'
-        }, {})
-          .then(function (urlToPaste) {
-            const embed = new EmbedBuilder()
-              .setTitle('Logs registro')
-              .setDescription(`📰 Registro-Logs \`${chan.id}\` creado <@!${chan.topic}> eliminado por <@!${interaction.user.id}>\n\nLogs: [**Click para ver los logs**](${urlToPaste})`)
-              .setColor('2f3136')
-              .setTimestamp();
 
-            // const embed2 = new client.discord.MessageEmbed()
-            //   .setAuthor('Logs Ticket', ' ')
-            //   .setDescription(`📰 Logs de tu ticket \`${chan.id}\`: [**Click para ver los logs**](${urlToPaste})`)
-            //   .setColor('2f3136')
-            //   .setTimestamp();
+      const embed = new EmbedBuilder()
+      .setTitle('Logs registro')
+      .setDescription(`📰 Registro-Logs \`${chan.id}\` creado <@!${chan.topic}> eliminado por <@!${interaction.user.id}>\n\n`)
+      .setColor('2f3136')
+      .setTimestamp();
 
-            //canal de logs
-            client.channels.cache.get('1019031315582038118').send({
-              embeds: [embed]
-            });
-            // client.users.cache.get(chan.topic).send({
-            //   embeds: [embed2]
-            // }).catch(() => {console.log('I cant send it DM')});
-            chan.send('Eliminando canal.');
+    // const embed2 = new client.discord.MessageEmbed()
+    //   .setAuthor('Logs Ticket', ' ')
+    //   .setDescription(`📰 Logs de tu ticket \`${chan.id}\`: [**Click para ver los logs**](${urlToPaste})`)
+    //   .setColor('2f3136')
+    //   .setTimestamp();
 
-            setTimeout(() => {
-              chan.delete();
-            }, 5000);
-          });
-      });
+    //canal de logs
+    client.channels.cache.get('1019031315582038118').send({
+      embeds: [embed]
+    });
+    // client.users.cache.get(chan.topic).send({
+    //   embeds: [embed2]
+    // }).catch(() => {console.log('I cant send it DM')});
+    chan.send('Eliminando canal.');
+
+    setTimeout(() => {
+      chan.delete();
+    }, 5000);
+    
     };
   },
 };
