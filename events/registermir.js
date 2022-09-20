@@ -34,7 +34,7 @@ module.exports = {
           try {
             const browser = await puppeteer.launch({
               headless: true,
-              args: isCurrentUserRoot() ? ['--no-sandbox'] : undefined
+              args: ['--no-sandbox']
           })
             const page = await browser.newPage();
             const response = await page.goto(`https://forum.mir4global.com/rank?ranktype=1&worldgroupid=12&worldid=509&classtype=0&searchname=${mensaje}&globalSearch=1`);
@@ -235,7 +235,4 @@ module.exports = {
       // console.log(mensaje);
     }
   }
-}
-function isCurrentUserRoot() {
-  return process.getuid() == 0; // UID 0 is always root
 }
