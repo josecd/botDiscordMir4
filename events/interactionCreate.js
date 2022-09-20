@@ -152,7 +152,10 @@ module.exports = {
                 rows.map(async (res) => {
                   (async () => {
                     try {
-                      const browser = await puppeteer.launch();
+                      const browser = await puppeteer.launch({
+                        headless: true,
+                        args: isCurrentUserRoot() ? ['--no-sandbox'] : undefined
+                    })
                       const page = await browser.newPage();
                       const response = await page.goto(`https://forum.mir4global.com/rank?ranktype=1&worldgroupid=12&worldid=509&classtype=0&searchname=${res.nameBackpack}&globalSearch=1`);
                       const body = await response.text();
@@ -399,7 +402,7 @@ module.exports = {
     setTimeout(() => {
       chan.delete();
     }, 5000);
-    
+
     };
   },
 };
