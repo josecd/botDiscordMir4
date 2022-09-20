@@ -122,7 +122,7 @@ module.exports = {
               const embed = new EmbedBuilder()
                 .setColor('ff9600')
                 .setTitle('Player information')
-                .setDescription(`You can only register na54 charactersNo results found`)
+                .setDescription(`You can only register na54 characters`)
                 .setFooter({ text: 'Information is updated every day at 03:00 PM Server time.' })
               message.channel.send({ embeds: [embed] })
               return false
