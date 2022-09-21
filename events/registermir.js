@@ -30,15 +30,15 @@ module.exports = {
         return false;
       }
 
-      if (message.author.username != message.guild.members.cache.get(message.author.id).displayName) {
-        const embed = new EmbedBuilder()
-          .setColor('ff9600')
-          .setTitle('Player information')
-          .setDescription(`You are already registered use the command !unregister`)
-          .setFooter({ text: 'Information is updated every day at 03:00 PM Server time.' })
-        message.channel.send({ embeds: [embed] })
-        return false;
-      }
+      // if (message.author.username != message.guild.members.cache.get(message.author.id).displayName) {
+      //   const embed = new EmbedBuilder()
+      //     .setColor('ff9600')
+      //     .setTitle('Player information')
+      //     .setDescription(`You are already registered use the command !unregister`)
+      //     .setFooter({ text: 'Information is updated every day at 03:00 PM Server time.' })
+      //   message.channel.send({ embeds: [embed] })
+      //   return false;
+      // }
       if (mensaje) {
         (async () => {
           try {
