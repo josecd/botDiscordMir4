@@ -9,7 +9,7 @@ const client = new Client({
     GatewayIntentBits.GuildMembers,
     GatewayIntentBits.GuildMessages
   ]
-});
+}); 
 
 const puppeteer = require('puppeteer');
 const jsdom = require('jsdom');
