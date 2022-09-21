@@ -14,7 +14,7 @@ module.exports = {
   name: 'ready',
   async execute(client) {
     //canal mandar mensaje inicial ticket
-    const oniChan = client.channels.cache.get('1018978643248156733')
+    const oniChan = client.channels.cache.get('1021985427328090162')
     function sendTicketMSG() {
       const embed = new EmbedBuilder()
         .setColor('ff0000')

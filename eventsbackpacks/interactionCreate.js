@@ -39,7 +39,7 @@ module.exports = {
         type: ChannelType.GuildTex,
         topic: interaction.user.id,
         //categoria donde se abren los tickets
-        parent: '1018994126991134730',
+        parent: '1021985346570952716',
         permissionOverwrites: [{
           id: interaction.user.id,
           allow: [PermissionsBitField.Flags.ViewChannel,
@@ -48,7 +48,7 @@ module.exports = {
         },
         {
           //Rol support
-          id: '1018992663090966598',
+          id: '1021985092027039844',
           allow: [PermissionsBitField.Flags.ViewChannel,
           PermissionsBitField.Flags.SendMessages,
           PermissionsBitField.Flags.ReadMessageHistory],
@@ -135,7 +135,7 @@ module.exports = {
 
                 const opened = await c.send({
                   //Rol support
-                  content: `<@&${'1018992663090966598'}>`,
+                  content: `<@&${'1021985092027039844'}>`,
                   embeds: [embed],
                   components: [row]
                 });
@@ -154,8 +154,8 @@ module.exports = {
                     try {
                       const browser = await puppeteer.launch({
                         headless: true,
-                        args: isCurrentUserRoot() ? ['--no-sandbox'] : undefined
-                    })
+                        args: ['--no-sandbox']
+                      })
                       const page = await browser.newPage();
                       const response = await page.goto(`https://forum.mir4global.com/rank?ranktype=1&worldgroupid=12&worldid=509&classtype=0&searchname=${res.nameBackpack}&globalSearch=1`);
                       const body = await response.text();
@@ -165,28 +165,28 @@ module.exports = {
                       let clan = ''
                       let powerscore = ''
                       let info = []
-              
+
                       let serversection = ''
                       let server = ''
-              
+
                       document.querySelectorAll('.list_article span').forEach(async (element) => {
                         info.push(element.textContent)
                       });
-              
+
                       document.querySelectorAll('[id^=worldgroup_name]').forEach(async (element) => {
                         serversection = element.textContent
                       });
-              
+
                       document.querySelectorAll('[id^=world_name]').forEach(async (element) => {
                         server = element.textContent.slice(3)
                       });
-              
+
                       ranking = info[0]
                       name = info[5]
                       clan = info[6]
                       // powerscore = info[7]
                       powerscore = clan == '-' ? info[8] : info[7]
-              
+
                       if (name) {
                         const embed = new EmbedBuilder()
                           .setColor('ff9600')
@@ -213,13 +213,13 @@ module.exports = {
                               value: powerscore + ' k',
                               inline: true
                             },
-              
+
                             {
                               name: 'Server',
                               value: serversection + ' ' + server,
                               inline: true
                             },
-              
+
                           ])
                         c.send({ embeds: [embed] })
                       } else {
@@ -229,11 +229,11 @@ module.exports = {
                           .setDescription(`No results found`)
                           .setFooter({ text: 'Information is updated every day at 03:00 PM Server time.' })
                         c.send({ embeds: [embed] })
-              
+
                       }
-              
-              
-              
+
+
+
                       await browser.close();
                     } catch (error) {
                       console.error(error);
@@ -244,15 +244,20 @@ module.exports = {
 
               c.edit({
                 //categoria donde se abren los tickets
-                parent: '1018994126991134730'
+                parent: '1021985346570952716'
               });
             };
             if (i.values[0] == 'registrar') {
-              
-              c.edit({
-                //Rol support
-                parent: '1018992663090966598'
-              });
+              const embed = new EmbedBuilder()
+                .setColor('ff9600')
+                .setTitle('Register information')
+                .setDescription(`to register a backpack you must put the following command !registerbackpack namepj`)
+                .setFooter({ text: 'character must be whitelisted in backpack clans and you can only register 2 backpacks' })
+              c.send({ embeds: [embed] })
+              // c.edit({
+              //   //Rol support
+              //   parent: '1021985092027039844'
+              // });
             };
           };
         });
@@ -315,9 +320,10 @@ module.exports = {
               },
               {
                 //role support
-                id: '1018992663090966598',
+                id: '1021985092027039844',
                 allow: [PermissionsBitField.Flags.ViewChannel,
-                PermissionsBitField.Flags.SendMessages
+                PermissionsBitField.Flags.SendMessages,
+                PermissionsBitField.Flags.ViewChannel
                 ],
               },
               {
@@ -379,34 +385,30 @@ module.exports = {
 
 
       const embed = new EmbedBuilder()
-      .setTitle('Logs registro')
-      .setDescription(`📰 Registro-Logs \`${chan.id}\` creado <@!${chan.topic}> eliminado por <@!${interaction.user.id}>\n\n`)
-      .setColor('2f3136')
-      .setTimestamp();
+        .setTitle('Logs registro')
+        .setDescription(`📰 Registro-Logs \`${chan.id}\` creado <@!${chan.topic}> eliminado por <@!${interaction.user.id}>\n\n`)
+        .setColor('2f3136')
+        .setTimestamp();
 
-    // const embed2 = new client.discord.MessageEmbed()
-    //   .setAuthor('Logs Ticket', ' ')
-    //   .setDescription(`📰 Logs de tu ticket \`${chan.id}\`: [**Click para ver los logs**](${urlToPaste})`)
-    //   .setColor('2f3136')
-    //   .setTimestamp();
+      // const embed2 = new client.discord.MessageEmbed()
+      //   .setAuthor('Logs Ticket', ' ')
+      //   .setDescription(`📰 Logs de tu ticket \`${chan.id}\`: [**Click para ver los logs**](${urlToPaste})`)
+      //   .setColor('2f3136')
+      //   .setTimestamp();
 
-    //canal de logs
-    client.channels.cache.get('1019031315582038118').send({
-      embeds: [embed]
-    });
-    // client.users.cache.get(chan.topic).send({
-    //   embeds: [embed2]
-    // }).catch(() => {console.log('I cant send it DM')});
-    chan.send('Eliminando canal.');
+      //canal de logs
+      client.channels.cache.get('1021985541799022612').send({
+        embeds: [embed]
+      });
+      // client.users.cache.get(chan.topic).send({
+      //   embeds: [embed2]
+      // }).catch(() => {console.log('I cant send it DM')});
+      chan.send('Eliminando canal.');
 
-    setTimeout(() => {
-      chan.delete();
-    }, 5000);
+      setTimeout(() => {
+        chan.delete();
+      }, 5000);
 
     };
   },
 };
-
-function isCurrentUserRoot() {
-  return process.getuid() == 0; // UID 0 is always root
-}
