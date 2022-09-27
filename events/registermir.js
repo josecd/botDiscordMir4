@@ -198,7 +198,7 @@ module.exports = {
                     message.channel.send({ embeds: [embed] })
                     let clanObj = message.guild.roles.cache.find(member => member.name == clan);
                     if (clanObj) {
-                      //insertar nombre de usuario registrado
+                      //insertar nombre de usuario registrado 
                       message.guild.members.cache.get(message.author.id).setNickname(`[${ranking}] ${name} ${powerscore}`)
 
                       clan == clan ? message.guild.members.cache.get(message.author.id).roles.add(clanObj.id) : '';
