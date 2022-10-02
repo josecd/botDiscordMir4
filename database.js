@@ -10,7 +10,7 @@ var mysql = require('mysql')
 //    else console.log('SQL Database Connected!');
 // });
 
-
+ 
 var db_config = {
   host: '162.241.61.74',
     user: 'gacelajs_cgjose',
