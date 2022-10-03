@@ -192,7 +192,7 @@ module.exports = {
                             message.channel.send(`result:\n${res}`)
                           })).catch((err => {
                             message.channel.send(`error:\n${err}`)
-                          }))
+                          })) 
                       }
                     }
                     message.channel.send({ embeds: [embed] })
