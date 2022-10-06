@@ -27,7 +27,7 @@ module.exports = {
           .setCustomId('open-ticket')
           .setLabel('Registrar mochila')
           .setEmoji('🎒')
-          .setStyle(ButtonStyle.Primary),
+          // .setStyle(ButtonStyle.Primary),
           // .setStyle('PRIMARY'),
         );
 
