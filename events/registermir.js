@@ -18,7 +18,16 @@ var db = require('../database')
 module.exports = {
   name: 'messageCreate',
   async execute(message) {
-    if (message.content.startsWith(prefix + "register")) {
+    if (false) {
+      const embed = new EmbedBuilder()
+        .setColor('ff9600')
+        .setTitle('Player information')
+        .setDescription(`Mir4 manintenance`)
+      message.channel.send({ embeds: [embed] })
+      return false;
+    }
+
+    if (message.content.startsWith(prefix + "register" || message.content.startsWith(prefix + "Register"))) {
       const mensaje = message.content.slice(10);
       if (message.guild.ownerId == message.author.id) {
         const embed = new EmbedBuilder()
@@ -192,7 +201,7 @@ module.exports = {
                             message.channel.send(`result:\n${res}`)
                           })).catch((err => {
                             message.channel.send(`error:\n${err}`)
-                          })) 
+                          }))
                       }
                     }
                     message.channel.send({ embeds: [embed] })
@@ -232,8 +241,9 @@ module.exports = {
                     const embed = new EmbedBuilder()
                       .setColor('ff9600')
                       .setTitle('Clan information')
-                      .setDescription(`clan is not whitelisted`)
+                      .setDescription(`clan ~~${clan}~~  is not whitelisted`)
                       .setFooter({ text: 'Information is updated every day at 03:00 PM Server time.' })
+                
                     message.channel.send({ embeds: [embed] })
                     return false
                   }
