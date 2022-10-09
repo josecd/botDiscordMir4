@@ -15,7 +15,6 @@ const puppeteer = require('puppeteer');
 const jsdom = require('jsdom');
 var db = require('./database')
 const eventFiles = fs.readdirSync('./events').filter(file => file.endsWith('.js'));
-
 for (const file of eventFiles) {
   const event = require(`./events/${file}`);
   client.on(event.name, (...args) => event.execute(...args, client));
