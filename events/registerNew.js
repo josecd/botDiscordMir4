@@ -22,7 +22,7 @@ module.exports = {
   async execute(message) {
     if (message.content.startsWith(prefix + "register" || message.content.startsWith(prefix + "Register"))) {
       // if (message.content.startsWith(prefix + "register1" || message.content.startsWith(prefix + "Register1"))) {
-      const sql = `SELECT * FROM registry where username='${message.author.username}'`
+      const sql = `SELECT * FROM registry where username='${message.author.username}' AND activo='1'`
       db.query(sql, async (err, rows) => {
         if (rows.length != 0) {
           const embed = new EmbedBuilder()
