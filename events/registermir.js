@@ -26,8 +26,8 @@ module.exports = {
       message.channel.send({ embeds: [embed] })
       return false;
     }
-
-    if (message.content.startsWith(prefix + "register" || message.content.startsWith(prefix + "Register"))) {
+    return false
+    if (message.content.startsWith(prefix + "11111111" || message.content.startsWith(prefix + "11111111"))) {
       const mensaje = message.content.slice(10);
       if (message.guild.ownerId == message.author.id) {
         const embed = new EmbedBuilder()
