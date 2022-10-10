@@ -59,7 +59,7 @@ module.exports = {
           const cricketWorldCupRawData = await getRawData(encodedURI);
           const parsedSampleData = await cheerio.load(cricketWorldCupRawData);
           const name = parsedSampleData('.user_name').text().replace(/ /g, "")
-          const sql1 = `SELECT * FROM registry WHERE name = '${mensaje}'`
+          const sql1 = `SELECT * FROM registry WHERE name = '${mensaje}' AND activo='1' `
           db.query(sql1, (err, rows) => {
             if (rows.length != 0) {
               const embed = new EmbedBuilder()
