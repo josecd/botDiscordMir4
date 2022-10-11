@@ -117,34 +117,37 @@ module.exports = {
                     console.log(`clan ~~${clan}~~  is not whitelisted`);
                     const sql2 = await`UPDATE registry SET activo=0 WHERE discorduserid='${i.discorduserid}'`
                     db.query(sql2, (err, rows) => { })
+                    const sql1 = `SELECT * FROM clanes`
+                    db.query(sql1, (err, rows) => {
+                      const valores = message.guild.roles.cache
+                      const valores2 = rows
 
-                    const valores = message.guild.roles.cache
-                    const valores2 = clanes
-
-                    const comparador = (valores, valores2) => {
-                      let responseArray = [];
-                      let lis = valores2.filter(i => {
-                        let obj = valores.find(e => {
-                          if (e.name == i.name) {
-                            let copyArray2Element = i;
-                            copyArray2Element.name = e.name;
-                            responseArray.push(copyArray2Element);
-                            return true;
-                          }
+                      const comparador = (valores, valores2) => {
+                        let responseArray = [];
+                        let lis = valores2.filter(i => {
+                          let obj = valores.find(e => {
+                            if (e.name == i.name) {
+                              let copyArray2Element = i;
+                              copyArray2Element.name = e.name;
+                              responseArray.push(copyArray2Element);
+                              return true;
+                            }
+                          });
                         });
+                        let responseArrayOnlyIds = responseArray.map(e => e.name);
+                        return responseArrayOnlyIds;
+                      }
+                      const clanInfo = comparador(valores, valores2)
+                      clanInfo.map(async (element) => {
+                        let rolClan = message.guild.roles.cache.find(member => member.name == element);
+                        message.guild.members.cache.get(i.discorduserid).roles.remove(rolClan.id)
                       });
-                      let responseArrayOnlyIds = responseArray.map(e => e.name);
-                      return responseArrayOnlyIds;
-                    }
-                    const clanInfo = comparador(valores, valores2)
-                    clanInfo.map(async (element) => {
-                      let rolClan = message.guild.roles.cache.find(member => member.name == element);
-                      message.guild.members.cache.get(i.discorduserid).roles.remove(rolClan.id)
-                    });
-                    let rol54 = message.guild.roles.cache.find(member => member.name == `NA54`);
-                    rol54 ? message.guild.members.cache.get(i.discorduserid).roles.remove(rol54.id) : ''
-                    message.guild.members.cache.get(i.discorduserid).setNickname("")
-                    return false
+                      let rol54 = message.guild.roles.cache.find(member => member.name == `NA54`);
+                      rol54 ? message.guild.members.cache.get(i.discorduserid).roles.remove(rol54.id) : ''
+                      message.guild.members.cache.get(i.discorduserid).setNickname("")
+                      return false
+                    })
+
                   }
                 })
 
@@ -154,73 +157,74 @@ module.exports = {
                 const sql2 = await `UPDATE registry SET activo=0 WHERE discorduserid='${i.discorduserid}'`
                 db.query(sql2, (err, rows) => { })
 
-                const valores = message.guild.roles.cache
-                const valores2 = clanes
-
-                const comparador = (valores, valores2) => {
-                  let responseArray = [];
-                  let lis = valores2.filter(i => {
-                    let obj = valores.find(e => {
-                      if (e.name == i.name) {
-                        let copyArray2Element = i;
-                        copyArray2Element.name = e.name;
-                        responseArray.push(copyArray2Element);
-                        return true;
-                      }
+                const sql1 = `SELECT * FROM clanes`
+                db.query(sql1, (err, rows) => {
+                  const valores = message.guild.roles.cache
+                  const valores2 = rows
+  
+                  const comparador = (valores, valores2) => {
+                    let responseArray = [];
+                    let lis = valores2.filter(i => {
+                      let obj = valores.find(e => {
+                        if (e.name == i.name) {
+                          let copyArray2Element = i;
+                          copyArray2Element.name = e.name;
+                          responseArray.push(copyArray2Element);
+                          return true;
+                        }
+                      });
                     });
+                    let responseArrayOnlyIds = responseArray.map(e => e.name);
+                    return responseArrayOnlyIds;
+                  }
+                  const clanInfo = comparador(valores, valores2)
+                  clanInfo.map(async (element) => {
+                    let rolClan = message.guild.roles.cache.find(member => member.name == element);
+                    message.guild.members.cache.get(i.discorduserid).roles.remove(rolClan.id)
                   });
-                  let responseArrayOnlyIds = responseArray.map(e => e.name);
-                  return responseArrayOnlyIds;
-                }
-                const clanInfo = comparador(valores, valores2)
-                clanInfo.map(async (element) => {
-                  let rolClan = message.guild.roles.cache.find(member => member.name == element);
-                  message.guild.members.cache.get(i.discorduserid).roles.remove(rolClan.id)
-                });
-                let rol54 = message.guild.roles.cache.find(member => member.name == `NA54`);
-                rol54 ? message.guild.members.cache.get(i.discorduserid).roles.remove(rol54.id) : ''
-                message.guild.members.cache.get(i.discorduserid).setNickname("")
+                  let rol54 = message.guild.roles.cache.find(member => member.name == `NA54`);
+                  rol54 ? message.guild.members.cache.get(i.discorduserid).roles.remove(rol54.id) : ''
+                  message.guild.members.cache.get(i.discorduserid).setNickname("")
+                  return false;
+                })
 
-
-
-                return false;
               }
             } else {
               console.log('----------------', i.discorduserid);
               console.log(`You don't have a user forum ${i.usernameds}`);
-                const sql2 = await `UPDATE registry SET activo=0 WHERE discorduserid='${i.discorduserid}'`
-                db.query(sql2, (err, rows) => { })
+              const sql2 = await `UPDATE registry SET activo=0 WHERE discorduserid='${i.discorduserid}'`
+              db.query(sql2, (err, rows) => { })
 
-                const valores = message.guild.roles.cache
-                const valores2 = clanes
+              const valores = message.guild.roles.cache
+              const valores2 = clanes
 
-                const comparador = (valores, valores2) => {
-                  let responseArray = [];
-                  let lis = valores2.filter(i => {
-                    let obj = valores.find(e => {
-                      if (e.name == i.name) {
-                        let copyArray2Element = i;
-                        copyArray2Element.name = e.name;
-                        responseArray.push(copyArray2Element);
-                        return true;
-                      }
-                    });
+              const comparador = (valores, valores2) => {
+                let responseArray = [];
+                let lis = valores2.filter(i => {
+                  let obj = valores.find(e => {
+                    if (e.name == i.name) {
+                      let copyArray2Element = i;
+                      copyArray2Element.name = e.name;
+                      responseArray.push(copyArray2Element);
+                      return true;
+                    }
                   });
-                  let responseArrayOnlyIds = responseArray.map(e => e.name);
-                  return responseArrayOnlyIds;
-                }
-                const clanInfo = comparador(valores, valores2)
-                clanInfo.map(async (element) => {
-                  let rolClan = message.guild.roles.cache.find(member => member.name == element);
-                  message.guild.members.cache.get(i.discorduserid).roles.remove(rolClan.id)
                 });
-                let rol54 = message.guild.roles.cache.find(member => member.name == `NA54`);
-                rol54 ? message.guild.members.cache.get(i.discorduserid).roles.remove(rol54.id) : ''
-                message.guild.members.cache.get(i.discorduserid).setNickname("")
+                let responseArrayOnlyIds = responseArray.map(e => e.name);
+                return responseArrayOnlyIds;
+              }
+              const clanInfo = comparador(valores, valores2)
+              clanInfo.map(async (element) => {
+                let rolClan = message.guild.roles.cache.find(member => member.name == element);
+                message.guild.members.cache.get(i.discorduserid).roles.remove(rolClan.id)
+              });
+              let rol54 = message.guild.roles.cache.find(member => member.name == `NA54`);
+              rol54 ? message.guild.members.cache.get(i.discorduserid).roles.remove(rol54.id) : ''
+              message.guild.members.cache.get(i.discorduserid).setNickname("")
 
 
 
-                return false;
+              return false;
             }
 
 
