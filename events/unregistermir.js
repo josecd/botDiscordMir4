@@ -18,7 +18,7 @@ var db = require('../database')
 module.exports = {
   name: 'messageCreate',
   async execute(message) {
-    if (message.content.startsWith(prefix + "unregisterpilot")) {
+    if (message.content.startsWith(prefix + "unregister")) {
       const mensaje = message.content.slice(10)
       console.log('test');
       if (message.guild.ownerId == message.author.id) {
