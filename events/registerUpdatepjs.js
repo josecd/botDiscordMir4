@@ -25,7 +25,6 @@ module.exports = {
       await message.guild.members.fetch() //cache all members in the server
 
       const sqlRegistry = `SELECT * FROM registry where activo='1'`
-      let clanes = await `SELECT * FROM clanes`
 
       db.query(sqlRegistry, async (err, rows) => {
 
@@ -102,9 +101,9 @@ module.exports = {
                       //insertar en la base de datos
 
                       var name2 = name;
-                      const sql = await`INSERT INTO registry (username,usernameds, displayName, ranking,name,clan,powescore,server, created_at,activo,discorduserid) 
-                                              VALUES ("${i.username}", "${i.usernameds}", "${i.displayName}","${ranking}","${name2}","${clan}","${ps}","${server}", NOW(),1,${i.discorduserid})`
-                      db.query(sql, (err, rows) => { /* */ })
+                      // const sql = await`INSERT INTO registry (username,usernameds, displayName, ranking,name,clan,powescore,server, created_at,activo,discorduserid) 
+                      //                         VALUES ("${i.username}", "${i.usernameds}", "${i.displayName}","${ranking}","${name2}","${clan}","${ps}","${server}", NOW(),1,${i.discorduserid})`
+                      // db.query(sql, (err, rows) => { /* */ })
 
                     } else {
 
@@ -115,7 +114,7 @@ module.exports = {
 
                   } else {
                     console.log(`clan ~~${clan}~~  is not whitelisted`);
-                    const sql2 = await`UPDATE registry SET activo=0 WHERE discorduserid='${i.discorduserid}'`
+                    const sql2 = `UPDATE registry SET activo=0 WHERE discorduserid='${i.discorduserid}'`
                     db.query(sql2, (err, rows) => { })
                     const sql1 = `SELECT * FROM clanes`
                     db.query(sql1, (err, rows) => {
@@ -154,7 +153,7 @@ module.exports = {
 
               } else {
                 console.log(`You don't have a clan ${i.usernameds}`);
-                const sql2 = await `UPDATE registry SET activo=0 WHERE discorduserid='${i.discorduserid}'`
+                const sql2 =  `UPDATE registry SET activo=0 WHERE discorduserid='${i.discorduserid}'`
                 db.query(sql2, (err, rows) => { })
 
                 const sql1 = `SELECT * FROM clanes`
@@ -192,7 +191,7 @@ module.exports = {
             } else {
               console.log('----------------', i.discorduserid);
               console.log(`You don't have a user forum ${i.usernameds}`);
-              const sql2 = await `UPDATE registry SET activo=0 WHERE discorduserid='${i.discorduserid}'`
+              const sql2 =  `UPDATE registry SET activo=0 WHERE discorduserid='${i.discorduserid}'`
               db.query(sql2, (err, rows) => { })
               const sql1 = `SELECT * FROM clanes`
               db.query(sql1, (err, rows) => {
