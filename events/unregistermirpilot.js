@@ -9,7 +9,7 @@ const client = new Client({
     GatewayIntentBits.GuildMembers,
     GatewayIntentBits.GuildMessages
   ]
-}); 
+});
 
 const puppeteer = require('puppeteer');
 const jsdom = require('jsdom');
@@ -18,7 +18,7 @@ var db = require('../database')
 module.exports = {
   name: 'messageCreate',
   async execute(message) {
-    if (message.content.startsWith(prefix + "unregisterpilot")) {
+    if (message.content.startsWith(prefix + "unpilot")) {
       const mensaje = message.content.slice(10)
       console.log('test');
       if (message.guild.ownerId == message.author.id) {
@@ -31,8 +31,8 @@ module.exports = {
         return false;
       }
 
-      const sql2 = `UPDATE registry SET activo=0 WHERE discorduserid='${message.author.id}'`
-      db.query(sql2, (err, rows) => {})
+      const sql2 = `UPDATE registrypilot SET activo=0 WHERE discorduserid='${message.author.id}'`
+      db.query(sql2, (err, rows) => { })
       const sql1 = `SELECT * FROM clanes`
       db.query(sql1, (err, rows) => {
         const valores = message.guild.roles.cache
@@ -61,7 +61,8 @@ module.exports = {
         let rol54 = message.guild.roles.cache.find(member => member.name == `NA54`);
         rol54 ? message.guild.members.cache.get(message.author.id).roles.remove(rol54.id) : ''
         message.guild.members.cache.get(message.author.id).setNickname(message.author.username)
-
+        //rol de pilot
+        message.guild.members.cache.get(message.author.id).roles.remove('1029203524254437466')
       })
     }
   }
